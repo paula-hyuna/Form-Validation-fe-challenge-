@@ -1,0 +1,37 @@
+.container {
+margin-top: 50px !important;
+padding: 10px !important;
+}
+.card{
+    box-shadow:5px 5px 10px #aaaaaa;
+    max-width: 600px; 
+}
+
+input {
+    margin-bottom:-15px !important;
+    /* border: 1px solid rgba(255, 0, 0, 0.418) !important; */
+   
+}
+.card-header, .card-footer{
+    background-color: rgb(255, 121, 121);
+}
+.form-group p{
+    color: red;
+    font-weight: bold;
+    font-size: 14px;
+}
+.formContainer {
+    padding: 20px;
+}
+button:disabled {
+    background-color: grey !important;
+    border: 1px solid grey !important;
+    opacity: 0.5 !important;
+}
+button:disabled:hover{
+    cursor:not-allowed !important;
+}
+button{
+    width: 100%;
+    box-shadow:5px 5px 10px #aaaaaa;
+}

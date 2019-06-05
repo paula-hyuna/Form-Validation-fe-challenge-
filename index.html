@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container align-content">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <p id="emoji" style='font-size:40px;'>&#128578;</p>
+                    </div> 
+                    <div class="card-body">
+                        <form class="formContainer">
+                            <div class="form-group">
+                                <label alt="Name" for="name"><strong>Name</strong></label>
+                                <input class="form-control" type="text" id="name" placeholder="e.g. John Doe"><br>
+                                <p id='nameMsg'></p><br>
+                                <label alt="Email" for="email"><strong>Email</strong></label>
+                                <input class="form-control" type="email" id="email" placeholder="e.g. johndoe@gmail.com"><br>
+                                <p id='emailMsg'></p><br>
+                                <button id="subBtn" class="btn btn-primary" type="submit" disabled>Submit</button>
+                            </div>    
+                        </form>
+                    </div>
+                    <div class="card-footer"><br></div>
+                </div>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </div>
+
+    <script>
+        var userName = document.querySelector('input[type="text"]');
+        var userEmail = document.querySelector('input[type="email"]');
+        var nameMsg = document.getElementById('nameMsg');
+        var emailMsg = document.getElementById('emailMsg');
+        var submitBtn = document.getElementById('subBtn');
+        var emoji = document.getElementById('emoji');
+        var regex = RegExp(/[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm);
+        var validName='';
+        var validEmail='';
+
+        userName.addEventListener('blur', function(event) {
+           
+            if( userName.value.length < 5) {
+                event.target.style.background='pink';
+                event.target.style.border='1px solid red';
+                nameMsg.textContent = 'Please enter a valid name';
+                validName = false;
+            }
+            //if no error, change err msg to empty string
+            else {
+                event.target.style.background='#e6ffee';
+                event.target.style.border='1px solid #009930';
+                nameMsg.textContent = '';
+                validName=true;
+            }
+            canYouSubmit();
+        })
+        userEmail.addEventListener('blur', function(event) {
+            
+            if( (userEmail!='') && (regex.test(userEmail.value)) ){
+                
+                event.target.style.background='#e6ffee';
+                event.target.style.border='1px solid #009930';
+                emailMsg.textContent = '';
+                validEmail=true;
+            }
+            else {
+                submitBtn.setAttribute('disabled', '');
+                event.target.style.background='pink';
+                event.target.style.border='1px solid red';
+                userName.setAttribute('aria-invalid', 'true');
+                emailMsg.textContent = 'Please enter a valid email address';
+                validEmail=false;
+               
+            }
+            canYouSubmit();
+        })
+
+        submitBtn.addEventListener('click', function(event){
+             
+            event.preventDefault();
+            
+            submitBtn.textContent = 'Success';
+            emoji.innerHTML = '&#128516'
+            submitBtn.classList.replace('btn-primary', 'btn-success');
+            
+                
+        })
+
+        function canYouSubmit() {
+            if((validName==true) && (validEmail==true)){
+                emoji.innerHTML = '&#128578;';
+                submitBtn.removeAttribute('disabled');
+            }
+
+            else if(validName!= validEmail) {
+                emoji.innerHTML = '&#128556;';
+            }
+
+            else if((validName==false) && (validEmail ==false)) {
+                emoji.innerHTML = '&#128577;';
+            }
+        }
+        
+    </script>
+</body>
+</html>
